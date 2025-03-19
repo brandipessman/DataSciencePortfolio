@@ -37,6 +37,7 @@ library(factoextra)
 library(lubridate)
 library(emmeans)
 library(mgcv)
+library(cowplot)
 ```
 
 ```{r import, include = FALSE}
@@ -52,19 +53,784 @@ season_dayavgl_2020 <- dayavgl_2020 %>%
   summarise(mean = mean(mean_leq),
             sd = sd(mean_leq))
 vibration_transmission2 <- readRDS(file = "vibration_transmission2.rds")
+participation_counts_modules <- read.csv("query_outputs/participation_counts_modules.csv")
+module1_training <- read.csv("query_outputs/module1_training.csv")
+module2_training <- read.csv("query_outputs/module2_training.csv")
+module3_training <- read.csv("query_outputs/module3_training.csv")
+module4_training <- read.csv("query_outputs/module4_training.csv")
+pre_post <- read.csv("query_outputs/pre_post.csv")
+spider_attitudes <- read.csv("query_outputs/spider_attitudes.csv")
+change_spider_attitudes <- read.csv("query_outputs/change_spider_attitudes.csv")
 ```
 
 Lincoln, Nebraska, USA | [bjpessman@gmail.com](bjpessman@gmail.com) | [GitHub](https://github.com/brandipessman) | [LinkedIn](https://www.linkedin.com/in/brandipessman/)
 
 # About Me
 
-I am a data scientist with a Ph.D. from the University of Nebraska-Lincoln, where I developed a passion for uncovering patterns in complex datasets and translating them into actionable insights. My expertise lies in data analytics, visualizations, predictive modeling, pipeline production, and geospatial analysis using tools like R, Python, SQL, Unix, Git, high-throughput computing, and QGIS.
+I am a data scientist with a Ph.D. from the University of Nebraska-Lincoln, where I developed a passion for uncovering patterns in complex datasets and translating them into actionable insights. My expertise lies in statistics, predictive modeling, pipeline production, data analytics, visualizations, wrangling, and geospatial analysis using tools like R, Python, SQL, Unix, Git, high-throughput computing, and QGIS.
 
-I excel at designing scalable workflows and predictive models that transform raw data into resolutions that drive decision-making and innovation. By applying advanced analytical techniques to biological systems, I have developed a deep understanding of complex, dynamic data - skills that translate to solving real-world challenges in business, technology, and other professional settings. 
+I excel at designing scalable workflows and statistical models that transform raw data into resolutions that drive decision-making and innovation. By applying advanced analytical techniques to biological systems, I have developed a deep understanding of complex, dynamic data - skills that translate to solving real-world challenges in industry. 
 
-*Below are selected snippets of projects demonstrating my relevant experiences. Code behind the graphics and tables can be expanded throughout to showcase my skills in data wrangling, statistical analysis, and visualization using Python, R, or SQL languages.*
+*Below are selected snippets of projects demonstrating my relevant experiences. The code behind the graphics and tables can be expanded throughout to showcase my skills in data wrangling, statistical analysis, and visualization using Python, R, or SQL languages.*
 
 # Featured Projects
+
+## Querying Sci-Comm Training Surveys [SQL, R]
+
+**ONGOING**
+
+<br>
+
+* **Tech Stack**: SQL (PostgreSQL), R
+
+* **Motivation**: Created a relational database in PostgreSQL for survey data completed by participants in science communication training workshops to assess outcomes.
+
+* **Impact**: Wrote SQL queries to analyze outcomes of science communication training workshops led through collaboration with my principal investigator to understand the impact of such training on participants perspectives on science communication. 
+
+-- Created a relational database of surveys completed by participants of a science communication training workshop called Nebraska Science Ambassadors:
+
+[Bold indicates **primary key**; Italics indicates *foreign key*.]
+
+<br>
+
+<span style="color: #EB6864;">**module1, module2, module3, module4, pretest, postest**: surveys completed before the training (pretest) after each module in the workshop series (module*) and after the workshop series (postest)</span>
+
+|               [**entry**, *recipient_id*, recorded_date, duration_s, progress, module, *question_id*, answer]
+
+<br>
+
+<span style="color: #EB6864;">**partcipants**: participant information</span>
+
+|               [**recipient_id**, recipient_name, iteration]
+
+<br>
+
+<span style="color: #EB6864;">**questions**: questions used in the surveys</span>
+
+|               [**question_id**, answer_type, definition1, definition2, definition3, definition4, definition5, definition6, definition7, definition8, question_type, question]
+
+
+```{r load databases, echo = FALSE, results = 'hide'}
+con <- dbConnect(SQLite(), ":memory:")
+dbWriteTable(con, "module1", read.csv("SQL/NESA_Module_1.csv"))
+dbWriteTable(con, "module2", read.csv("SQL/NESA_Module_2.csv"))
+dbWriteTable(con, "module3", read.csv("SQL/NESA_Module_3.csv"))
+dbWriteTable(con, "module4", read.csv("SQL/NESA_Module_4.csv"))
+dbWriteTable(con, "pretest", read.csv("SQL/pre_test.csv"))
+dbWriteTable(con, "posttest", read.csv("SQL/post_test.csv"))
+dbWriteTable(con, "questions", read.csv("SQL/survey_questions.csv"))
+dbWriteTable(con, "participants", read.csv("SQL/participants.csv"))
+```
+
+```{r module1, include = FALSE}
+query <- dbGetQuery(con, "SELECT *
+FROM module1 
+LIMIT 5")
+kable(query, caption = "module1") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "left")
+```
+
+```{r posttest, include = FALSE}
+query <- dbGetQuery(con, "SELECT *
+FROM posttest 
+LIMIT 5")
+kable(query, caption = "posttest") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "left")
+```
+
+```{r questions, include = FALSE}
+query <- dbGetQuery(con, "SELECT *
+FROM questions 
+LIMIT 2")
+kable(query, caption = "questions") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "left")
+```
+
+```{r participants, include = FALSE}
+query <- dbGetQuery(con, "SELECT recipient_id, '' AS recipient_name, iteration
+FROM participants 
+LIMIT 5")
+kable(query, caption = "participants") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "left")
+```
+
+<br> 
+
+-- Queried survey data using SQL in PostgreSQL to run analyses in R to assess participant outcomes from science communication training. 
+
+<br>
+
+### Participation in Modules
+
+<br>
+
+*Three cohorts of participants completed the training (Spring 2022, Fall 2022, Spring 2023), each with four modules of information. In the post-training survey, participants selected which of the four modules they completed. This query grabs the responses and counts the number of modules that each participant said they attended.*
+
+```sql
+SELECT posttest.recipient_id, iteration, COUNT(answer) AS answer_count
+FROM training.posttest
+JOIN training.participants
+ON posttest.recipient_id = participants.recipient_id
+JOIN training.questions
+ON posttest.question_id = questions.question_id
+WHERE posttest.question_id LIKE 'participation%'
+AND posttest.question_id NOT LIKE 'participation5'
+GROUP BY posttest.recipient_id, iteration
+ORDER BY posttest.recipient_id;
+```
+
+```{r query participation, echo = FALSE}
+query <- dbGetQuery(con, "SELECT posttest.recipient_id, iteration, COUNT(answer) AS answer_count
+FROM posttest
+JOIN participants
+ON posttest.recipient_id = participants.recipient_id
+JOIN questions
+ON posttest.question_id = questions.question_id
+WHERE posttest.question_id LIKE 'participation%'
+AND posttest.question_id NOT LIKE 'participation5'
+GROUP BY posttest.recipient_id, iteration
+ORDER BY posttest.recipient_id
+LIMIT 5;")
+kable(query, caption = "Only showing the first 5 rows.") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
+```
+
+<br>
+
+*I can then graph the percentage and number of participants from each cohort that completed all (4) or some of the training modules.*
+
+```{r participation graph, echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", collapse = TRUE}
+iteration_count <- participation_counts_modules %>% 
+  group_by(iteration, answer_count) %>% 
+  count() %>% 
+  filter(iteration != "All") %>% 
+  mutate(answer_count = factor(answer_count),
+         answer_count = fct_relevel(answer_count, "4", "3", "2", "1"),
+         iteration = factor(iteration),
+         iteration = fct_relevel(iteration, 
+                                 "Spring 2023", "Fall 2022", "Spring 2022"))
+iteration_count$position <- c(0.31, 0.81, 0.07, 0.57, 0.02, 0.09, 0.54, 0.98)
+
+four_colors = c("#1b9e77", "#d95f02", "#7570b3", "#e7298a")
+
+iteration_count %>% 
+  ggplot() +
+    geom_bar(aes(x = n, y = iteration, fill = answer_count), 
+             position = "fill", stat = "identity") +
+    geom_text(aes(x = position, y = iteration, label = n)) +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("No. Modules Completed", 
+                 values = four_colors) +
+    xlab("") +
+    ylab("") +
+    theme_classic() +
+    theme(legend.position = "top",
+        axis.text = element_text(size = 12, color = "black"),
+        legend.text = element_text(size = 12, color = "black"),
+        legend.title = element_text(size = 12, color = "black")) +
+    guides(fill = guide_legend(reverse=TRUE))
+```
+
+**As time went on, cohorts were finishing fewer of the four modules.**
+
+<br>
+
+### Outcomes of Training {.tabset}
+
+<br>
+
+#### Module Efficacy
+
+<br>
+
+*I queried the responses to the surveys following module 1. I repeated this query for each of the four modules.*
+
+```sql
+SELECT iteration, module, module1.question_id, definition_1, definition_2, 
+  definition_3, definition_4, definition_5, question, answer, 
+  COUNT(module1.recipient_id) AS response
+FROM training.module1
+JOIN training.participants
+ON module1.recipient_id = participants.recipient_id
+JOIN training.questions
+ON module1.question_id = questions.question_id
+GROUP BY iteration, module, module1.question_id, definition_1, definition_2, 
+  definition_3, definition_4, definition_5, question, answer
+ORDER BY iteration, question_id, answer;
+```
+
+```{r efficacy, echo = FALSE}
+query <- dbGetQuery(con, "SELECT iteration, module, module1.question_id, definition_1, definition_2, definition_3, definition_4, definition_5, question, answer, COUNT(module1.recipient_id) AS response
+FROM module1
+JOIN participants
+ON module1.recipient_id = participants.recipient_id
+JOIN questions
+ON module1.question_id = questions.question_id
+GROUP BY iteration, module, module1.question_id, definition_1, definition_2, definition_3, definition_4, definition_5, question, answer
+ORDER BY iteration, module1.question_id, answer
+LIMIT 3")
+kable(query, caption = "Only showing the first 3 rows.") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
+```
+
+<br>
+
+*I used R code to count the number of participants that selected each unique response which ranged from "Strongly disagree" (1) to "Strongly agree" (5). Then, I graphed the percentage of participants selecting each response for each question. I indicated the number of participants at the end of each bar.*
+
+```{r efficacy graph, echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.width = 14, fig.height = 7, collapse = TRUE}
+five_colors = c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#e6ab02")
+
+module1_training <- module1_training %>% 
+  filter(answer != "NULL",
+         iteration != "All") %>% 
+  mutate(answer = ifelse(answer == 1, "Strongly \ndisagree",
+                  ifelse(answer == 2, "Somewhat \ndisagree",
+                  ifelse(answer == 3, "Neither agree \nnor disagree", 
+                  ifelse(answer == 4, "Somewhat \nagree", 
+                  ifelse(answer == 5, "Strongly \nagree", "NA"))))),
+         answer = fct_relevel(answer, "Strongly \nagree", "Somewhat \nagree", 
+                              "Neither agree \nnor disagree", "Somewhat \ndisagree", 
+                              "Strongly \ndisagree"),
+         iteration, fct_relevel(iteration, "Spring 2023", "Fall 2022", "Spring 2022")) %>% 
+  dplyr::select(iteration, question_id, question, answer, response) %>% 
+  group_by(question_id, question, answer) %>% 
+  summarize(response = sum(response))
+
+sum_module1 <- module1_training %>% 
+  group_by(question) %>% 
+  summarize(total = sum(response)) %>% 
+  mutate(y = 1.1)
+  
+module1_graph <- ggplot() +
+    geom_bar(aes(x = response, y = question, fill = answer), 
+             position = "fill", stat = "identity", data = module1_training) +
+    geom_text(aes(x = y, y = question, label = total), data = sum_module1) +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("Level of \nAggreement", 
+                 values = five_colors) +
+    xlab("") +
+    ylab("Module 1") +
+    theme_classic() +
+    theme(legend.position = "top",
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(size = 12, color = "black"),
+        axis.text.y = element_text(size = 10, color = "black"),
+        legend.text = element_text(size = 10, color = "black"),
+        legend.title = element_text(size = 10, color = "black")) +
+    guides(fill = guide_legend(reverse=TRUE))
+
+# Module 2
+module2_training <- module2_training %>% 
+  filter(answer != "NULL",
+         iteration != "All") %>% 
+  mutate(answer = ifelse(answer == 1, "Strongly \ndisagree",
+                  ifelse(answer == 2, "Somewhat \ndisagree",
+                  ifelse(answer == 3, "Neither agree \nnor disagree", 
+                  ifelse(answer == 4, "Somewhat \nagree", 
+                  ifelse(answer == 5, "Strongly \nagree", "NA"))))),
+         answer = fct_relevel(answer, "Strongly \nagree", "Somewhat \nagree", 
+                              "Neither agree \nnor disagree", "Somewhat \ndisagree", 
+                              "Strongly \ndisagree"),
+         iteration, fct_relevel(iteration, "Spring 2023", "Fall 2022", "Spring 2022")) %>% 
+  dplyr::select(iteration, question_id, question, answer, response) %>% 
+  group_by(question_id, question, answer) %>% 
+  summarize(response = sum(response))
+
+sum_module2 <- module2_training %>% 
+  group_by(question) %>% 
+  summarize(total = sum(response)) %>% 
+  mutate(y = 1.1)
+  
+module2_graph <- ggplot() +
+    geom_bar(aes(x = response, y = question, fill = answer), 
+             position = "fill", stat = "identity", data = module2_training) +
+    geom_text(aes(x = y, y = question, label = total), data = sum_module2) +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("Level of Aggreement", 
+                 values = five_colors) +
+    xlab("") +
+    ylab("Module 2") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.x = element_blank(),
+          axis.title.y = element_text(size = 12, color = "black"),
+          axis.text.y = element_text(size = 10, color = "black"),
+          legend.text = element_text(size = 10, color = "black"),
+          legend.title = element_text(size = 10, color = "black")) 
+
+# Module 3
+module3_training <- module3_training %>% 
+  filter(answer != "NULL",
+         iteration != "All") %>% 
+  mutate(answer = ifelse(answer == 1, "Strongly \ndisagree",
+                  ifelse(answer == 2, "Somewhat \ndisagree",
+                  ifelse(answer == 3, "Neither agree \nnor disagree", 
+                  ifelse(answer == 4, "Somewhat \nagree", 
+                  ifelse(answer == 5, "Strongly \nagree", "NA"))))),
+         answer = fct_relevel(answer, "Strongly \nagree", "Somewhat \nagree", 
+                              "Neither agree \nnor disagree", "Somewhat \ndisagree", 
+                              "Strongly \ndisagree"),
+         iteration, fct_relevel(iteration, "Spring 2023", "Fall 2022", "Spring 2022")) %>% 
+  dplyr::select(iteration, question_id, question, answer, response) %>% 
+  group_by(question_id, question, answer) %>% 
+  summarize(response = sum(response))
+
+sum_module3 <- module3_training %>% 
+  group_by(question) %>% 
+  summarize(total = sum(response)) %>% 
+  mutate(y = 1.1)
+  
+module3_graph <- ggplot() +
+    geom_bar(aes(x = response, y = question, fill = answer), 
+             position = "fill", stat = "identity", data = module3_training) +
+    geom_text(aes(x = y, y = question, label = total), data = sum_module3) +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("Level of Aggreement", 
+                 values = five_colors) +
+    xlab("") +
+    ylab("Module 3") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.x = element_blank(),
+          axis.title.y = element_text(size = 12, color = "black"),
+          axis.text.y = element_text(size = 10, color = "black"),
+          legend.text = element_text(size = 10, color = "black"),
+          legend.title = element_text(size = 10, color = "black"))
+
+# Module 4
+module4_training <- module4_training %>% 
+  filter(answer != "NULL",
+         iteration != "All") %>% 
+  mutate(answer = ifelse(answer == 1, "Strongly \ndisagree",
+                  ifelse(answer == 2, "Somewhat \ndisagree",
+                  ifelse(answer == 3, "Neither agree \nnor disagree", 
+                  ifelse(answer == 4, "Somewhat \nagree", 
+                  ifelse(answer == 5, "Strongly \nagree", "NA"))))),
+         answer = fct_relevel(answer, "Strongly \nagree", "Somewhat \nagree", 
+                              "Neither agree \nnor disagree", "Somewhat \ndisagree", 
+                              "Strongly \ndisagree"),
+         iteration, fct_relevel(iteration, "Spring 2023", "Fall 2022", "Spring 2022")) %>% 
+  dplyr::select(iteration, question_id, question, answer, response) %>% 
+  group_by(question_id, question, answer) %>% 
+  summarize(response = sum(response))
+
+sum_module4 <- module4_training %>% 
+  group_by(question) %>% 
+  summarize(total = sum(response)) %>% 
+  mutate(y = 1.1)
+  
+module4_graph <- ggplot() +
+    geom_bar(aes(x = response, y = question, fill = answer), 
+             position = "fill", stat = "identity", data = module4_training) +
+    geom_text(aes(x = y, y = question, label = total), data = sum_module4) +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("Level of Aggreement", 
+                 values = five_colors) +
+    xlab("") +
+    ylab("Module 4") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.x = element_text(size = 12, color = "black"),
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.title.y = element_text(size = 12, color = "black"),
+          legend.text = element_text(size = 10, color = "black"),
+          legend.title = element_text(size = 10, color = "black")) 
+
+plot_grid(module1_graph, module2_graph, module3_graph, module4_graph, ncol=1, 
+          align="v", rel_heights = c(1.5, 1, 1, 1.1))
+```
+
+<br>
+
+**Generally, at least 75% of people felt that they learned information from each module. Participants appeared less confident in the takeaways from the fourth module, but there were no "Strongly disagree" to any statement in the last module.**
+
+<br>
+
+---
+
+#### Impact on Sci-Comm Attitudes
+
+<br>
+
+*I queried the responses of each participant that completed pre- and post-training surveys.* 
+
+```sql
+select pretest.recipient_id, iteration, pretest.question_id, question, answer_type, 
+  definition_1, definition_2, definition_3, definition_4, definition_5, 
+  pretest.answer as pre_answer, posttest.answer as post_answer
+FROM training.pretest
+JOIN training.posttest
+ON pretest.recipient_id = posttest.recipient_id 
+  AND pretest.question_id = posttest.question_id
+JOIN training.questions
+ON pretest.question_id = questions.question_id
+JOIN training.participants
+ON pretest.recipient_id = participants.recipient_id
+WHERE pretest.answer IS NOT NULL AND posttest.answer IS NOT NULL
+AND pretest.question_id NOT LIKE 'prepost3_%'
+ORDER BY question_id;
+```
+
+```{r science communication, echo = FALSE}
+query <- dbGetQuery(con, "select pretest.recipient_id, iteration, pretest.question_id, question, answer_type, definition_1, definition_2, definition_3, definition_4, definition_5, pretest.answer as pre_answer, posttest.answer as post_answer
+FROM pretest
+JOIN posttest
+ON pretest.recipient_id = posttest.recipient_id AND pretest.question_id = posttest.question_id
+JOIN  questions
+ON pretest.question_id = questions.question_id
+JOIN  participants
+ON pretest.recipient_id = participants.recipient_id
+WHERE pretest.answer IS NOT NULL AND posttest.answer IS NOT NULL
+AND pretest.question_id NOT LIKE 'prepost3_%'
+ORDER BY pretest.recipient_id
+LIMIT 3")
+kable(query, caption = "Only showing the first 3 rows. ") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
+```
+
+<br>
+
+*I used a paired t-test to test whether responses to each shared question differed between pre- and post-training surveys. To graph the questions that showed a significant shift, I subtracted each pre-training response from the post-training response.*
+
+Asterisks indicate significance level of the departure from 0 (no change) 'before / after' Bonferroni p-value correction (\*\*\* P < 0.001, \*\* P < 0.01, \* P < 0.05, . P < 0.1, NS P > 0.1).
+
+The number to the right indicates the average answer value from the post-training survey (range 1-5).
+
+<br>
+
+```{r science communication graph, echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.width = 9, fig.height = 9, collapse = TRUE}
+pre_post_10 <- pre_post %>% 
+  filter(question_id == "prepost10")
+t.test(x = pre_post_10$pre_answer, y = pre_post_10$post_answer, paired = TRUE)$p.value
+p.adjust(t.test(x = pre_post_10$pre_answer, y = pre_post_10$post_answer, paired = TRUE)$p.value, 
+         method = "bonferroni", n = 6)
+pre_post_10_selected <- pre_post_10 %>% 
+  mutate(change = post_answer - pre_answer) %>% 
+  group_by(question_id, question) %>% 
+  summarize(mean_change = mean(change),
+            se_change = plotrix::std.error(change)) %>% 
+  mutate(y = 1.2,
+         y2 = 1, 
+         post_mean = round(mean(pre_post_10$post_answer), 2), 
+         stats = "*** / ***",
+         question = "How good are you at science communication?") %>% 
+  ggplot() +
+    geom_point(aes(x = mean_change, y = question), color = "#7570b3") +
+    geom_errorbar(aes(xmax = mean_change + 1.96 * se_change, xmin = mean_change - 1.96 * se_change, 
+                      y = question), width = 0.25, color = "#7570b3") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#7570b3") +
+    geom_text(aes(x = y2, y = question, label = stats), size = 4, color = "#7570b3") +
+    geom_text(aes(x = y, y = question, label = post_mean), size = 4, color = "#7570b3") +
+    scale_x_continuous(limits = c(-0.7, 1.3), breaks = c(seq(-0.5, 1, 0.5))) +
+    ylab("") +
+    xlab("Change toward 'not at all good' ------------------ Change toward 'very good'") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.text.x = element_text(size = 10, color = "black"),
+          axis.title.x = element_text(size = 10, color = "black"))
+
+pre_post_11 <- pre_post %>% 
+  filter(question_id == "prepost11")
+t.test(x = pre_post_11$pre_answer, y = pre_post_11$post_answer, paired = TRUE)$p.value
+p.adjust(t.test(x = pre_post_11$pre_answer, y = pre_post_11$post_answer, paired = TRUE)$p.value, 
+         method = "bonferroni", n = 6)
+pre_post_11_selected <- pre_post_11 %>% 
+  mutate(change = post_answer - pre_answer) %>% 
+  group_by(question_id, question) %>% 
+  summarize(mean_change = mean(change),
+            se_change = plotrix::std.error(change)) %>% 
+  mutate(y = 1.2,
+         y2 = 1, 
+         post_mean = round(mean(pre_post_11$post_answer), 2), 
+         stats = "*** / ***",
+         question = "How well does the public understand your \nscience when you communicate it to them?") %>% 
+  ggplot() +
+    geom_point(aes(x = mean_change, y = question), color = "#7570b3") +
+    geom_errorbar(aes(xmax = mean_change + 1.96 * se_change, xmin = mean_change - 1.96 * se_change, 
+                      y = question), width = 0.25, color = "#7570b3") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#7570b3") +
+    geom_text(aes(x = y2, y = question, label = stats), size = 4, color = "#7570b3") +
+    geom_text(aes(x = y, y = question, label = post_mean), size = 4, color = "#7570b3") +
+    scale_x_continuous(limits = c(-0.7, 1.3), breaks = c(seq(-0.5, 1, 0.5))) +
+    ylab("") +
+    xlab("Change toward less understanding --- Change toward more understanding") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.text.x = element_text(size = 10, color = "black"),
+          axis.title.x = element_text(size = 10, color = "black"))
+
+pre_post_12 <- pre_post %>% 
+  filter(question_id == "prepost12")
+t.test(x = pre_post_12$pre_answer, y = pre_post_12$post_answer, paired = TRUE)$p.value
+p.adjust(t.test(x = pre_post_12$pre_answer, y = pre_post_12$post_answer, paired = TRUE)$p.value, 
+         method = "bonferroni", n = 6)
+pre_post_12_selected <- pre_post_12 %>% 
+  mutate(change = post_answer - pre_answer) %>% 
+  group_by(question_id, question) %>% 
+  summarize(mean_change = mean(change),
+            se_change = plotrix::std.error(change)) %>% 
+  mutate(y = 1.2,
+         y2 = 1, 
+         post_mean = round(mean(pre_post_12$post_answer), 2), 
+         stats = "* / NS",
+         question = "If you were to list all the students/staff \nin your department from the worst to the best in \nscience communication, where would you place yourself?") %>% 
+  ggplot() +
+    geom_point(aes(x = mean_change, y = question), color = "#7570b3") +
+    geom_errorbar(aes(xmax = mean_change + 1.96 * se_change, xmin = mean_change - 1.96 * se_change, 
+                      y = question), width = 0.25, color = "#7570b3") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#7570b3") +
+    geom_text(aes(x = y2, y = question, label = stats), size = 4, color = "#7570b3") +
+    geom_text(aes(x = y, y = question, label = post_mean), size = 4, color = "#7570b3") +
+    scale_x_continuous(limits = c(-0.7, 1.3), breaks = c(seq(-0.5, 1, 0.5))) +
+    ylab("") +
+    xlab("Change toward 'one of the best' ----------- Change toward 'one of the worst'") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.text.x = element_text(size = 10, color = "black"),
+          axis.title.x = element_text(size = 10, color = "black"))
+
+pre_post_13 <- pre_post %>% 
+  filter(question_id == "prepost13")
+t.test(x = pre_post_13$pre_answer, y = pre_post_13$post_answer, paired = TRUE)$p.value
+p.adjust(t.test(x = pre_post_13$pre_answer, y = pre_post_13$post_answer, paired = TRUE)$p.value, 
+         method = "bonferroni", n = 6)
+pre_post_13_selected <- pre_post_13 %>% 
+  mutate(change = post_answer - pre_answer) %>% 
+  group_by(question_id, question) %>% 
+  summarize(mean_change = mean(change),
+            se_change = plotrix::std.error(change)) %>% 
+  mutate(y = 1.2,
+         y2 = 1, 
+         post_mean = round(mean(pre_post_13$post_answer), 2), 
+         stats = "** / *",
+         question = "Think about the classes and professional development \ntraining you have had in the past. How good of a job \ndid they prepare you to engage in science communication?") %>% 
+  ggplot() +
+    geom_point(aes(x = mean_change, y = question), color = "#7570b3") +
+    geom_errorbar(aes(xmax = mean_change + 1.96 * se_change, xmin = mean_change - 1.96 * se_change, 
+                      y = question), width = 0.25, color = "#7570b3") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#7570b3") +
+    geom_text(aes(x = y2, y = question, label = stats), size = 4, color = "#7570b3") +
+    geom_text(aes(x = y, y = question, label = post_mean), size = 4, color = "#7570b3") +
+    scale_x_continuous(limits = c(-0.7, 1.3), breaks = c(seq(-0.5, 1, 0.5))) +
+    ylab("") +
+    xlab("Change toward more prepared --------------- Change toward less prepared") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.text.x = element_text(size = 10, color = "black"),
+          axis.title.x = element_text(size = 10, color = "black"))
+
+
+pre_post_14_1 <- pre_post %>% 
+  filter(question_id == "prepost14_1")
+t.test(x = pre_post_14_1$pre_answer, y = pre_post_14_1$post_answer, paired = TRUE)$p.value
+p.adjust(t.test(x = pre_post_14_1$pre_answer, y = pre_post_14_1$post_answer, paired = TRUE)$p.value, 
+         method = "bonferroni", n = 6)
+pre_post_14_1_selected <- pre_post_14_1 %>% 
+  mutate(change = post_answer - pre_answer) %>% 
+  group_by(question_id, question) %>% 
+  summarize(mean_change = mean(change),
+            se_change = plotrix::std.error(change)) %>% 
+  mutate(y = 1.2,
+         y2 = 1, 
+         post_mean = round(mean(pre_post_14_1$post_answer), 2), 
+         stats = "* / .",
+         question = "I will be successful at engaging in science \ncommunication in the next year.") %>% 
+  ggplot() +
+    geom_point(aes(x = mean_change, y = question), color = "#7570b3") +
+    geom_errorbar(aes(xmax = mean_change + 1.96 * se_change, xmin = mean_change - 1.96 * se_change, 
+                      y = question), width = 0.25, color = "#7570b3") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#7570b3") +
+    geom_text(aes(x = y2, y = question, label = stats), size = 4, color = "#7570b3") +
+    geom_text(aes(x = y, y = question, label = post_mean), size = 4, color = "#7570b3") +
+    scale_x_continuous(limits = c(-0.7, 1.3), breaks = c(seq(-0.5, 1, 0.5))) +
+    ylab("") +
+    xlab("Change toward disagreement ------------------- Change toward agreement") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.text.x = element_text(size = 10, color = "black"),
+          axis.title.x = element_text(size = 10, color = "black"))
+
+pre_post_14_2 <- pre_post %>% 
+  filter(question_id == "prepost14_2")
+t.test(x = pre_post_14_2$pre_answer, y = pre_post_14_2$post_answer, paired = TRUE)$p.value
+p.adjust(t.test(x = pre_post_14_2$pre_answer, y = pre_post_14_2$post_answer, paired = TRUE)$p.value, 
+         method = "bonferroni", n = 6)
+pre_post_14_2_selected <- pre_post_14_2 %>% 
+  mutate(change = post_answer - pre_answer) %>% 
+  group_by(question_id, question) %>% 
+  summarize(mean_change = mean(change),
+            se_change = plotrix::std.error(change)) %>% 
+  mutate(y = 1.2,
+         y2 = 1, 
+         post_mean = round(mean(pre_post_14_2$post_answer), 2), 
+         stats = "** / *",
+         question = "The public will be more accepting of science \nafter I engage in science communication.") %>% 
+  ggplot() +
+    geom_point(aes(x = mean_change, y = question), color = "#7570b3") +
+    geom_errorbar(aes(xmax = mean_change + 1.96 * se_change, xmin = mean_change - 1.96 * se_change, 
+                      y = question), width = 0.25, color = "#7570b3") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#7570b3") +
+    geom_text(aes(x = y2, y = question, label = stats), size = 4, color = "#7570b3") +
+    geom_text(aes(x = y, y = question, label = post_mean), size = 4, color = "#7570b3") +
+    scale_x_continuous(limits = c(-0.7, 1.3), breaks = c(seq(-0.5, 1, 0.5))) +
+    ylab("") +
+    xlab("Change toward disagreement ------------------- Change toward agreement") +
+    theme_classic() +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size = 10, color = "black"),
+          axis.text.x = element_text(size = 10, color = "black"),
+          axis.title.x = element_text(size = 10, color = "black"))
+
+
+plot_grid(pre_post_10_selected, pre_post_11_selected, pre_post_12_selected, pre_post_13_selected,
+          pre_post_14_1_selected, pre_post_14_2_selected, ncol=1, align="v")
+```
+
+<br>
+
+**Participants' reported an increase in perceived abilities in science communication.**
+
+<br>
+
+---
+
+#### Impact on Attitudes for Spiders
+
+<br>
+
+*Lastly, I queried the post-training survey responses related to attitudes toward spiders, as a key part of this training involved engaging the public about research on spiders.*
+
+```sql
+SELECT posttest.recipient_id, posttest.question_id, question, answer_type, 
+  definition_1, definition_2, definition_3, definition_4, definition_5, answer
+FROM training.posttest
+JOIN training.questions
+ON posttest.question_id = questions.question_id
+WHERE posttest.question_id LIKE 'post26%';
+```
+
+```{r spider attitudes, echo = FALSE}
+query <- dbGetQuery(con, "SELECT posttest.recipient_id, posttest.question_id, question, answer_type, definition_1, definition_2, definition_3, definition_4, definition_5, answer
+FROM posttest
+JOIN questions
+ON posttest.question_id = questions.question_id
+WHERE posttest.question_id LIKE 'post26%'
+LIMIT 3;")
+kable(query, caption = "Only showing the first 3 rows.") %>%
+  kable_classic() %>% 
+  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
+```
+
+<br>
+
+*I graphed the percentage of participants responding to each level of agreement. The sample size is designated to the left of each result.*
+
+```{r spider attitudes graph, echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.width = 11, fig.height = 5, collapse = TRUE}
+six_colors = c("#1b9e77", "#e6ab02", "#d95f02", "#7570b3", "#e7298a", "#66a61e")
+
+spider_attitudes <- spider_attitudes %>% 
+  filter(answer != "NULL") %>% 
+  mutate(answer = ifelse(answer == 1, "Strongly \ndisagree",
+                  ifelse(answer == 2, "Somewhat \ndisagree",
+                  ifelse(answer == 3, "Neither agree \nnor disagree", 
+                  ifelse(answer == 4, "Somewhat \nagree", 
+                  ifelse(answer == 5, "Strongly \nagree", "NA"))))),
+         answer = fct_relevel(answer, "Strongly \nagree", "Somewhat \nagree", 
+                              "Neither agree \nnor disagree", "Somewhat \ndisagree", 
+                              "Strongly \ndisagree")) %>%
+  group_by(question, question_id, answer) %>% 
+  count() %>% 
+  mutate(response = n) %>% 
+  dplyr::select(question_id, question, answer, response)
+
+sum_spider_attitudes <- spider_attitudes %>% 
+  group_by(question) %>% 
+  summarize(total = sum(response)) %>% 
+  mutate(y = 1.1)
+  
+ggplot() +
+    geom_bar(aes(x = response, y = question, fill = answer), 
+             position = "fill", stat = "identity", data = spider_attitudes) +
+    geom_text(aes(x = y, y = question, label = total), data = sum_spider_attitudes) +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("Level of Aggreement", 
+                 values = five_colors) +
+    xlab("") +
+    ylab("") +
+    theme_classic() +
+    theme(legend.position = "top",
+          axis.text.x = element_text(size = 12, color = "black"),
+          axis.title.y = element_text(size = 12, color = "black"),
+          axis.text.y = element_text(size = 10, color = "black"),
+          legend.text = element_text(size = 10, color = "black"),
+          legend.title = element_text(size = 10, color = "black")) +
+    guides(fill = guide_legend(reverse=TRUE))
+```
+
+```{r change spider attitudes graph, echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.width = 11, fig.height = 4, collapse = TRUE}
+change_spider_attitudes <- change_spider_attitudes %>% 
+  filter(answer != "NULL") %>% 
+  mutate(answer = ifelse(answer == 1, "Strongly \ndisagree",
+                  ifelse(answer == 2, "Disagree", 
+                  ifelse(answer == 3, "Somewhat \ndisagree",
+                  ifelse(answer == 4, "Neither agree \nnor disagree", 
+                  ifelse(answer == 5, "Somewhat \nagree", 
+                  ifelse(answer == 6, "Agree",
+                  ifelse(answer == 7, "Strongly \nagree", "NA"))))))),
+         answer = fct_relevel(answer, "Strongly \nagree", "Agree", "Somewhat \nagree", 
+                              "Neither agree \nnor disagree", "Somewhat \ndisagree", 
+                              "Disagree")) %>%
+  group_by(question, question_id, answer) %>% 
+  count() %>% 
+  mutate(response = n) %>% 
+  dplyr::select(question_id, question, answer, response)
+
+sum_change_spider_attitudes <- change_spider_attitudes %>% 
+  group_by(question) %>% 
+  summarize(total = sum(response)) %>% 
+  mutate(y = 1.1)
+  
+ggplot() +
+    geom_bar(aes(x = response, y = factor(question), fill = answer), 
+             position = "fill", stat = "identity", data = change_spider_attitudes) +
+    geom_text(aes(x = y, y = factor(question), label = total), data = sum_change_spider_attitudes) +
+    annotate(geom = 'segment', y = 1.46,  x = 0.30, xend = 1, yend = 1.46) +
+    annotate(geom = 'text', y = 1.5,  x = 0.65, label = "70% Agree") +
+    scale_y_discrete() +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual("Level of Aggreement", 
+                 values = six_colors) +
+    xlab("") +
+    ylab("") +
+    theme_classic() +
+    theme(legend.position = "top",
+          axis.text.x = element_text(size = 12, color = "black"),
+          axis.title.y = element_text(size = 12, color = "black"),
+          axis.text.y = element_text(size = 10, color = "black"),
+          legend.text = element_text(size = 10, color = "black"),
+          legend.title = element_text(size = 10, color = "black")) +
+    guides(fill = guide_legend(reverse=TRUE))
+```
+
+<br>
+
+**Participants completed the training with a heightened curiosity about spiders, with 70% reporting that the training changed their attitude toward spiders.**
+
+<br>
+
+---
 
 ## Modeling Computer-Trained Poses [Python]
 **ONGOING**
@@ -1346,7 +2112,7 @@ ggplot() +
 
 ## Analyzing Energy Loss in Webs [R]
 
-**ACCEPTED FOR PUBLICATION IN CURRENT BIOLOGY**
+[**PUBLISHED IN CURRENT BIOLOGY**](https://doi.org/10.1016/j.cub.2025.02.041)
 
 ```{r graph_abs, fig.align = "center", out.width = "50%"}
 knitr::include_graphics("graph_abs.jpg")
@@ -1680,227 +2446,3 @@ kable(long, digits = 3, format = "html", caption = "Longer-Distance Transmission
 <br>
 
 ---
-
-## Querying Student Social Networks [SQL]
-
-**COURSEWORK FOR CERTIFICATE COMPLETION**
-
-<br>
-
-* **Tech Stack**: SQL
-
-* **Motivation**: Learned and applied key skills to query relational databases.
-
-* **Impact**: Built SQL queries to analyze relational data on student friendships, uncovering patterns in social interactions. 
-
--- Wrote queries as part of the Stanford Online Course: *Relational Databases and SQL*
-
-*Here are the database structures:*
-
-```{r load databases, echo = TRUE, results = 'hide'}
-con <- dbConnect(SQLite(), ":memory:")
-dbExecute(con, "CREATE TABLE Highschooler (
-                ID INTEGER PRIMARY KEY,
-                name TEXT,
-                grade INTEGER
-              )")
-dbExecute(con, "INSERT INTO Highschooler (ID, name, grade) VALUES 
-                (1510, 'Jordan', 9),
-                (1689, 'Gabriel', 9),
-                (1381, 'Tiffany', 9),
-                (1709, 'Cassandra', 9),
-                (1101, 'Haley', 10),
-                (1782, 'Andrew', 10),
-                (1468, 'Kris', 10),
-                (1641, 'Brittany', 10),
-                (1247, 'Alexis', 11),
-                (1316, 'Austin', 11),
-                (1911, 'Gabriel', 11),
-                (1501, 'Jessica', 11),
-                (1304, 'Jordan', 12),
-                (1025, 'John', 12),
-                (1934, 'Kyle', 12),
-                (1661, 'Logan', 12)")
-dbExecute(con, "CREATE TABLE Friend (
-                ID1 INTEGER,
-                ID2 INTEGER
-              )")
-dbExecute(con, "INSERT INTO Friend (ID1, ID2) VALUES 
-                (1510, 1381),
-                (1510, 1689),
-                (1689, 1709),
-                (1381, 1247),
-                (1709, 1247),
-                (1689, 1782),
-                (1782, 1468),
-                (1782, 1316),
-                (1782, 1304),
-                (1468, 1101),
-                (1468, 1641),
-                (1101, 1641),
-                (1247, 1911),
-                (1247, 1501),
-                (1911, 1501),
-                (1501, 1934),
-                (1316, 1934),
-                (1934, 1304),
-                (1304, 1661),
-                (1661, 1025),
-                (1381, 1510),
-                (1689, 1510),
-                (1709, 1689),
-                (1247, 1381),
-                (1247, 1709),
-                (1782, 1689),
-                (1468, 1782),
-                (1316, 1782),
-                (1304, 1782),
-                (1101, 1468),
-                (1641, 1468),
-                (1641, 1101),
-                (1911, 1247),
-                (1501, 1247),
-                (1501, 1911),
-                (1934, 1501),
-                (1934, 1316),
-                (1304, 1934),
-                (1661, 1304),
-                (1025, 1661)")
-dbExecute(con, "CREATE TABLE Likes (
-                ID1 INTEGER,
-                ID2 INTEGER
-              )")
-dbExecute(con, "INSERT INTO Likes (ID1, ID2) VALUES 
-              (1689, 1709),
-              (1709, 1689),
-              (1782, 1709),
-              (1911, 1247),
-              (1247, 1468),
-              (1641, 1468),
-              (1316, 1304),
-              (1501, 1934),
-              (1934, 1501),
-              (1025, 1101)")
-```
-
-```{r Highschooler, echo = FALSE}
-query <- dbGetQuery(con, "select *
-from Highschooler 
-limit 5")
-kable(query, caption = "Highschooler") %>%
-  kable_classic() %>% 
-  kable_styling(full_width = FALSE, position = "float_left")
-```
-
-```{r Friend, echo = FALSE}
-query <- dbGetQuery(con, "select *
-from Friend 
-limit 5")
-kable(query, caption = "Friend") %>%
-  kable_classic() %>% 
-  kable_styling(full_width = FALSE, position = "float_left")
-```
-
-```{r Likes, echo = FALSE}
-query <- dbGetQuery(con, "select *
-from Likes 
-limit 5")
-kable(query, caption = "Likes") %>%
-  kable_classic() %>% 
-  kable_styling(full_width = FALSE, position = "float_left")
-```
-
-*Only the first 5 entries are presented.*
-
-**Highschooler** ( ID, name, grade )
-
-There is a high school student with unique ID and a given first name in a certain grade.
-
-**Friend** ( ID1, ID2 )
-
-The student with ID1 is friends with the student with ID2. Friendship is mutual, so if (123, 456) is in the Friend table, so is (456, 123).
-
-**Likes** ( ID1, ID2 )
-
-The student with ID1 likes the student with ID2. Liking someone is not necessarily mutual, so if (123, 456) is in the Likes table, there is no guarantee that (456, 123) is also present.
-
-<br>
-
-### Selected Exercises {.tabset}
-
-<br>
-
-#### Ex1.
-
-<br>
-
-*For every student who likes someone 2 or more grades younger than themselves, return that student's name and grade, and the name and grade of the student they like.*
-
-```sql
-select H1.name as name1, H1.grade as grade1, H2.name as name2, H2.grade as grade2
-from Highschooler H1 
-	join Likes L on H1.ID = L.ID1 
-	join Highschooler H2 on L.ID2 = H2.ID
-where H1.grade - H2.grade > 1
-```
-
-```{r q2, echo = FALSE}
-query <- dbGetQuery(con, "select H1.name as name1, H1.grade as grade1, H2.name as name2, H2.grade as grade2
-from Highschooler H1 
-	join Likes L on H1.ID = L.ID1 
-	join Highschooler H2 on L.ID2 = H2.ID
-where H1.grade - H2.grade > 1")
-kable(query) %>%
-  kable_classic() %>% 
-  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
-```
-
-#### Ex2.
-
-<br>
-
-*For every pair of students who both like each other, return the name and grade of both students. Include each pair only once, with the two names in alphabetical order.*
-
-```sql
-select H1.name as name1, H1.grade as grade1, H2.name as name2, H2.grade as grade2
-from Likes L1 
-  join Likes L2 on L1.ID1 = L2.ID2 and L1.ID2 = L2.ID1
-  join Highschooler H1 on L1.ID1 = H1.ID 
-  join Highschooler H2 on L1.ID2 = H2.ID
-where H1.name < H2.name
-```
-
-```{r q3, echo = FALSE}
-query <- dbGetQuery(con, "select H1.name as name1, H1.grade as grade1, H2.name as name2, H2.grade as grade2
-from Likes L1 
-join Likes L2 on L1.ID1 = L2.ID2 and L1.ID2 = L2.ID1
-join Highschooler H1 on L1.ID1 = H1.ID 
-join Highschooler H2 on L1.ID2 = H2.ID
-where H1.name < H2.name")
-kable(query) %>%
-  kable_classic() %>% 
-  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
-```
-
-#### Ex3.
-
-<br>
-
-*Find all students who do not appear in the Likes table (as a student who likes or is liked) and return their names and grades. Sort by grade, then by name within each grade.*
-
-```sql
-select name, grade
-from Highschooler
-where ID not in (select ID1 from Likes) and ID not in (select ID2 from Likes)
-order by grade, name
-```
-
-```{r q4, echo = FALSE}
-query <- dbGetQuery(con, "select name, grade
-from Highschooler
-where ID not in (select ID1 from Likes) and ID not in (select ID2 from Likes)
-order by grade, name")
-kable(query) %>%
-  kable_classic() %>% 
-  kable_styling(full_width = FALSE, position = "center", latex_options = "hold_position")
-```
