@@ -1,0 +1,122 @@
+question_id,answer_type,definition_1,definition_2,definition_3,definition_4,definition_5,definition_6,definition_7,definition_8,question_type,question
+eval1_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to define 'science communication'.
+eval1_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to identify some of the challenges of communicating about science.
+eval1_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to understand the importance of identifying target audiences for science communication. 
+eval1_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to tailor messages about science that consider the target audience.
+eval1_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to understand the impact of effective communication about science.
+eval2_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to describe challenges related to science communication on online platforms.
+eval2_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to identify a target audience for communicating science online.
+eval2_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,"I am able to communicate science in different contexts online (e.g., Twitter, blog posts)."
+eval2_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to communicate science in ways that are visually appealing to my target audience.
+eval2_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to develop a social media strategy to communicate science.
+eval3_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to explain similarities between informal and formal science education.
+eval3_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to align my science communication goals with appropriate environments and audiences.
+eval3_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to assess the strengths and weaknesses of informal science learning programs.
+eval3_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,"I am able to facilitate the informal science learning event, Eight-Legged Encounters."
+eval3_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to reflect upon and learn from informal science education experiences.
+eval3_5_post_51,Yes/No,Yes,No,,,,,,,Experience,"Have you taken an arachnology course (e.g., UNL's BIOS 480/880)?"
+eval3_6_post_52,Yes/No,Yes,No,,,,,,,Experience,"Have you participated in arachnid-related research (e.g., as part of an undergraduate or graduate research project)?"
+eval4_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to understand the Youth Program Quality Assessment (YPQA) focus areas.
+eval4_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to develop after-school club activities with YPQA in mind.
+eval4_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to communicate science concepts in a way youth will understand.
+eval4_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to develop science-related activities for after-school program clubs that will be engaging for youth.
+eval4_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Training Efficacy,I am able to use techniques to ensure youth engagement throughout after-school club activities.
+prepost3_1,Yes/No,Yes,,,,,,,,Experience,"Before NESA, have you ever attended training or taken classes on any of the following topics? Check all that apply. Science communication."
+prepost3_2,Yes/No,Yes,,,,,,,,Experience,"Before NESA, have you ever attended training or taken classes on any of the following topics? Check all that apply. Informal science learning."
+prepost3_3,Yes/No,Yes,,,,,,,,Experience,"Before NESA, have you ever attended training or taken classes on any of the following topics? Check all that apply. After-school STEM education."
+prepost4_1,User Entered Phrase,,,,,,,,,Thoughts Toward Science Communication,"What are three words or phrases (2-3 words) that come to mind when you hear ""science communication""? - #1"" "
+prepost4_2,User Entered Phrase,,,,,,,,,Thoughts Toward Science Communication,"What are three words or phrases (2-3 words) that come to mind when you hear ""science communication""? - #2"" "
+prepost4_3,User Entered Phrase,,,,,,,,,Thoughts Toward Science Communication,"What are three words or phrases (2-3 words) that come to mind when you hear ""science communication""? - #3"" "
+prepost7_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Engaging in science communication improves my self worth.
+prepost7_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Successfully communicating my research to the public makes me feel good about myself.
+prepost7_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,I believe engaging in science communication is necessary for me to feel successful.
+prepost7_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Engaging in science communication is not necessary to show I am competent.
+prepost7_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,I value the prestige associated with being a top science communicator.
+prepost7_6,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,I do not need to prove myself by participating in science communication.
+prepost8_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Engaging in science communication will take time away from my  job responsibilities. 
+prepost8_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Science communication will provide me opportunities for interdisciplinary collaboration.
+prepost8_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Engaging in science communication will cause me to lose credibility with my peers.
+prepost8_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Engaging in science communication will take funds away from other activities.
+prepost8_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,I would waste too much time if I engaged in science communication.
+prepost10,Scale,Not at all good,,,,Very good,,,,Before/After Attitude,How good are you at science communication? 
+prepost11,Scale,They do not understand the science at all.,,,,They understand the science nearly perfectly.,,,,Before/After Attitude,How well does the public understand your science when you communicate it to them?
+prepost12,Scale,One of the best.,,,,On of the worst.,,,,Before/After Attitude,"If you were to list all the students/staff in your department from the worst to the best in science communication, where would you place yourself? "
+prepost13,Scale,The trainings have prepared me to engage in science communication.,,,,The trainings have not prepared me to engage in science communication. ,,,,Before/After Attitude,Think about the classes and professional development training you have had in the past. How good of a job did they prepare you to engage in science communication?
+prepost14_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,I will be successful at engaging in science communication in the next year.
+prepost14_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,The public will be more accepting of science after I engage in science communication.
+prepost14_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,I will not be successful in learning new concepts related to science communication.
+prepost14_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Before/After Attitude,Engaging in science communication will improve my job performace.
+participation1,Yes/No,Yes,,,,,,,,Participation,"Please indicate which of the following workshops and events you have attended. Select all that apply. Workshop 1: Overview of Science Communication"" "
+participation2,Yes/No,Yes,,,,,,,,Participation,Please indicate which of the following workshops and events you have attended. Select all that apply. Workshop 2: Online Science Communication and Social Media.
+participation3,Yes/No,Yes,,,,,,,,Participation, Please indicate which of the following workshops and events you have attended. Select all that apply. Workshop 3: Informal Science Learning / Eight-Legged Encounters.
+participation4,Yes/No,Yes,,,,,,,,Participation,Please indicate which of the following workshops and events you have attended. Select all that apply. Workshop 4: After School Clubs and Working with Youth (NOT OFFERED IN SPRING 2023).
+participation5,Yes/No,Yes,,,,,,,,Participation,Please indicate which of the following workshops and events you have attended. Select all that apply. Eight-Legged Encounters Event.
+post6_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,Engaging in science communication is exciting.
+post6_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,I enjoy participating in science communication.  
+post6_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,Learning about science communication is boring.  
+post6_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,I like the challenge of engaging in science communication.
+post6_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,Engaging in science communication is appealing.
+post6_6,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,I find science communication to be boring.
+post6_7,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Motivation/Confidence,I enjoy learning about science communication from experts.
+post15,Scale,Very comfortable,Somewhat comfortable,A little comfortable,Not at all comfortable,,,,,Motivation/Confidence,How comfortable do you feel presenting to groups?
+post16,Scale,A lot,Some ,A little,Not at all,,,,,Motivation/Confidence,How much do you like presenting to groups?
+post17,Scale,A lot,Some ,A little,Not at all,,,,,Motivation/Confidence,How much do you feel you're a role model?
+post18,Scale,Very confident,Somewhat confident,A little confident,Not at all confident,,,,,Motivation/Confidence,How confident are you in working with kids?
+post19,Scale,Never,,,,Very often,,,,Motivation/Confidence,"In general, how often do members of the public ask you about science? "
+post20,Scale,Different from me,,,,Similar to me,,,,Motivation/Confidence,How would you describe the people who do ask you questions about science? 
+post21,Scale,They have a variety of attitudes and beliefs that differ from my own.,,,,They share similar attitudes and beliefs to me.,,,,Motivation/Confidence,Think about the people who you talk to about science. How would you describe these people?
+post22,Scale,Never,,,,Very often,,,,Motivation/Confidence,How often do you engage the public in discussions about science?
+post23,Scale,People who have values and attitudes that differ from mine.,,,,People who have values and attitudes similar to mine.,,,,Motivation/Confidence,Consider the groups of people you spend time with socially. How would you describe them?
+post24,Scale,People who have values and attitudes that differ from mine.,,,,People who have values and attitudes similar to mine.,,,,Motivation/Confidence,Think about times you have delivered presentations related to science. How would you generally describe your audience?
+post25_1,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I avoid going to parks or on camping trips because there may be spiders about.
+post25_2,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I would feel some anxiety holding a toy spider in my hand.
+post25_3,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I dislike looking at pictures of spiders in a magazine. 
+post25_4,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders," If there is a spider on the ceiling over my bed, I cannot go to sleep unless someone kills it for me."
+post25_5,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I am terrified by the thought of touching a harmless spider.
+post25_6,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,"If someone says that there are spiders anywhere about, I become alert and edgy."
+post25_7,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I would not go down to the basement to get something if I thought there might be spiders down there.
+post25_8,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I would feel uncomfortable if a spider crawled out of my shoe as I took it out of the closet to put it on.
+post25_9,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,"When I see a spider, I feel tense and restless."
+post25_10,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I feel sick when I see a spider.
+post25_11,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I shudder when I think of spiders.
+post25_12,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,The way spiders move is repulsive.
+post25_13,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,If I came upon a spider while cleaning the attic I would probably run.
+post25_14,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,I would prefer not to finish a story if something about spiders was introduced into the plot.
+post25_15,Yes/No,TRUE,FALSE,,,,,,,Attitude Toward Spiders,"Even if I was late for a very important appointment, the thought of spiders would stop me from taking a shortcut through an underpass."" "
+post26_1,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,I would like to read more about spiders.
+post26_2,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,I would like to know more about spiders.
+post26_3,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,I would like to know more about how scientists study spiders.
+post26_4,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,Greater attention should be given to spider protection.
+post26_5,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,Spiders are interesting animals.
+post26_6,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,People should use fewer chemicals in order to allow spiders to live.
+post26_7,Level of Agreement,Strongly disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Strongly agree,,,,Attitude Toward Spiders,I would like to watch a spider constructing its web.
+post27,Level of Agreement,Strongly disagree,Disagree,Somewhat disagree,Neither agree nor disagree,Somewhat agree,Agree,Strongly agree,,Change in Attitude Toward Spiders,Participating in these workshops and activities has changed my attitudes toward spiders.
+post28,Level of Agreement,Much less interested,A little interested,The same,A little more interested,Much more interested,,,,Change in Motivation,"After participating in the training and events, how much more or less interested are you in conveying science to the general public?"
+post29,Scale,None at all,A little,A moderate amount,A lot,A great deal,,,,Motivation/Confidence,How much do you think you are a science kind of person?
+post30,Scale,None at all,A little,A moderate amount,A lot,A great deal,,,,Motivation/Confidence,How much do others think you are a science kind of person?
+post31,Scale,Excellent,Good,Fair,Poor,,,,,Motivation/Confidence,How good are you at science?
+post32,Scale,None at all,A little,A moderate amount,A lot,A great deal,,,,Motivation/Confidence,"When you were younger, how much did you want to become a scientist? "
+post33,Scale,None at all,A little,A moderate amount,A lot,A great deal,,,,Motivation/Confidence,How much do you like learning about new discoveries?
+post34,Scale,A lot,Some,A little,Not at all,,,,,Motivation/Confidence,"How much, if at all, do you want to become a scientist? "
+post35,Scale,Very important,Somewhat important,A little important,Not at all important,,,,,Motivation/Confidence,How important is science to your future career?
+post36,Scale,Very interested,Somewhat interested,A little interested,Not at all interested,,,,,Motivation/Confidence,How interested are you in pursuing a career in education?
+post38,Factor,University of Nebraska-Lincoln,University of Nebraska-Omaha,University of Nebraska-Kearney,Other,,,,,Demographics,What institution do you attend? - Selected Choice.
+post38_text,User Entered Phrase,,,,,,,,,Demographics,What institution do you attend? - Other - Text.
+post39,Factor,Freshman/first-year,Sophomore,Junior,Senior,Master's Student,Doctoral Student,,Other,Demographics,What is your classification in college? - Selected Choice.
+post39_text,User Entered Phrase,,,,,,,,,Demographics,What is your classification in college? - Other - Text.
+post40,User Entered Phrase,,,,,,,,,Demographics,What is your academic major(s)?
+post41,Factor,Male,Female,Non-binary/third gender,Prefer not to say,,,,,Demographics,How would you describe your gender?
+post42_1,Yes/No,Asian,,,,,,,,Demographics,Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice Asian.
+post42_2,Yes/No,Black or African American,,,,,,,,Demographics,Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice Black or African American.
+post42_3,Yes/No,White,,,,,,,,Demographics,Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice White.
+post42_4,Yes/No,"Hispanic, Latino, or Spanish origin",,,,,,,,Demographics,"Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice Hispanic, Latino, or Spanish origin."
+post42_6,Yes/No,"Some other race, ethnicity, or origin",,,,,,,,Demographics,"Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice Some other race, ethnicity, or orgin."
+post42_7,Yes/No,American Indian or Alaska Native,,,,,,,,Demographics,Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice American Indian or Alaska Native.
+post42_8,Yes/No,Middle Eastern or North African,,,,,,,,Demographics,Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice Middle Eastern or North African. 
+post42_9,Yes/No,Native Hawaiian or Other Pacific Islander,,,,,,,,Demographics,Which category(ies) best describes your race(s)? Select more than one if applicable. - Selected Choice Native Hawaiin or Other Pacific Islander.
+post42_text,User Entered Phrase,,,,,,,,,Demographics,"Which category(ies) best describes your race(s)? Select more than one if applicable. - Some other race, ethnicity, or orgin - Text."
+post43,Year,,,,,,,,,Demographics,What year were you born?
+post44,Yes/No,Yes,No,,,,,,,Demographics,Did one or more of your parents graduate from a four-year college?
+post45,Factor,Very liberal,Liberal,Somewhat liberal,Moderate,Somewhat conservative,Conservative,Very conservative,,Demographics,"In general, how would you describe your political views?"
+post46,Factor,Republican,Democrat,Independent,Other,,,,,Demographics,"Generally speaking, do you usually think of yourself as a Republican, a Democrat, an Independent, or something else? - Selected Choice."
+post46_text,User Entered Phrase,,,,,,,,,Demographics,"Generally speaking, do you usually think of yourself as a Republican, a Democrat, an Independent, or something else? - Other - Text."

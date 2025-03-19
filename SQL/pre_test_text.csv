@@ -1,0 +1,310 @@
+entry,recipient_id,recorded_date,duration_s,progress,question_id,answer
+1,49,2022-02-18T13:07:46Z,511,100,prepost4_1,engaging
+2,49,2022-02-18T13:07:46Z,511,100,prepost4_2,fact-based
+3,49,2022-02-18T13:07:46Z,511,100,prepost4_3,fun
+4,79,2022-02-18T13:07:56Z,531,100,prepost4_1,biology
+5,79,2022-02-18T13:07:56Z,531,100,prepost4_2,new research
+6,79,2022-02-18T13:07:56Z,531,100,prepost4_3,involvement
+7,57,2022-02-18T13:09:20Z,354,100,prepost4_1,education
+8,57,2022-02-18T13:09:20Z,354,100,prepost4_2,outreach
+9,57,2022-02-18T13:09:20Z,354,100,prepost4_3,leadership
+10,65,2022-02-18T13:09:38Z,636,100,prepost4_1,STEM
+11,65,2022-02-18T13:09:38Z,636,100,prepost4_2,teaching others
+12,65,2022-02-18T13:09:38Z,636,100,prepost4_3,communicating
+13,66,2022-02-18T13:09:52Z,421,100,prepost4_1,outreach
+14,66,2022-02-18T13:09:52Z,421,100,prepost4_2,informal
+15,66,2022-02-18T13:09:52Z,421,100,prepost4_3,fun
+16,94,2022-02-18T13:09:53Z,403,100,prepost4_1,Mass Media
+17,94,2022-02-18T13:09:53Z,403,100,prepost4_2,Lecture
+18,94,2022-02-18T13:09:53Z,403,100,prepost4_3,Teaching
+19,95,2022-02-18T13:10:10Z,378,100,prepost4_1,dialogue
+20,95,2022-02-18T13:10:10Z,378,100,prepost4_2,presentation
+21,95,2022-02-18T13:10:10Z,378,100,prepost4_3,collaboration
+22,5,2022-02-18T13:10:33Z,449,100,prepost4_1,learning
+23,5,2022-02-18T13:10:33Z,449,100,prepost4_2,advancement
+24,5,2022-02-18T13:10:33Z,449,100,prepost4_3,public knowledge
+25,59,2022-02-18T13:11:10Z,413,100,prepost4_1,Necessary
+26,59,2022-02-18T13:11:10Z,413,100,prepost4_2,Important
+27,59,2022-02-18T13:11:10Z,413,100,prepost4_3,Well explained
+28,90,2022-02-18T13:11:14Z,486,100,prepost4_1,Clear
+29,90,2022-02-18T13:11:14Z,486,100,prepost4_2,Accessible
+30,90,2022-02-18T13:11:14Z,486,100,prepost4_3,Informative
+31,1,2022-02-18T13:11:16Z,460,100,prepost4_1,Important
+32,1,2022-02-18T13:11:16Z,460,100,prepost4_2,Global
+33,1,2022-02-18T13:11:16Z,460,100,prepost4_3,Education
+34,58,2022-02-18T13:11:17Z,576,100,prepost4_1,Inclusive learning environment
+35,58,2022-02-18T13:11:17Z,576,100,prepost4_2,Clearing up miscommunication
+36,58,2022-02-18T13:11:17Z,576,100,prepost4_3,Different base levels of knowledge
+37,31,2022-02-18T13:11:19Z,485,100,prepost4_1,Education
+38,31,2022-02-18T13:11:19Z,485,100,prepost4_2,Entertainment
+39,31,2022-02-18T13:11:19Z,485,100,prepost4_3,learning
+40,47,2022-02-18T13:11:32Z,473,100,prepost4_1,teaching
+41,47,2022-02-18T13:11:32Z,473,100,prepost4_2,public
+42,47,2022-02-18T13:11:32Z,473,100,prepost4_3,stakeholder
+43,96,2022-02-18T13:11:44Z,523,100,prepost4_1,teaching
+44,96,2022-02-18T13:11:44Z,523,100,prepost4_2,talking between scientist
+45,96,2022-02-18T13:11:44Z,523,100,prepost4_3,public education
+46,26,2022-02-18T13:12:43Z,583,100,prepost4_1,Outreach
+47,26,2022-02-18T13:12:43Z,583,100,prepost4_2,Education
+48,26,2022-02-18T13:12:43Z,583,100,prepost4_3,Engagement
+49,73,2022-02-18T13:12:45Z,574,100,prepost4_1,Peer-review
+50,73,2022-02-18T13:12:45Z,574,100,prepost4_2,Analyze
+51,73,2022-02-18T13:12:45Z,574,100,prepost4_3,Research
+52,38,2022-02-18T13:12:51Z,496,100,prepost4_1,Education
+53,38,2022-02-18T13:12:51Z,496,100,prepost4_2,Awareness
+54,38,2022-02-18T13:12:51Z,496,100,prepost4_3,Connecting
+55,68,2022-02-18T13:13:01Z,532,100,prepost4_1,Twitter
+56,68,2022-02-18T13:13:01Z,532,100,prepost4_2,Citizen scientists
+57,68,2022-02-18T13:13:01Z,532,100,prepost4_3,Public engagement
+58,36,2022-02-18T13:13:06Z,504,100,prepost4_1,Talking about
+59,36,2022-02-18T13:13:06Z,504,100,prepost4_2,Misinformation
+60,36,2022-02-18T13:13:06Z,504,100,prepost4_3,Politics
+61,74,2022-02-18T13:13:10Z,761,100,prepost4_1,Increase understanding
+62,74,2022-02-18T13:13:10Z,761,100,prepost4_2,enjoy science
+63,74,2022-02-18T13:13:10Z,761,100,prepost4_3,raise awareness
+64,71,2022-02-18T13:13:19Z,625,100,prepost4_1,Community
+65,71,2022-02-18T13:13:19Z,625,100,prepost4_2,Outreach
+66,71,2022-02-18T13:13:19Z,625,100,prepost4_3,Accessibility
+67,97,2022-02-18T13:13:39Z,585,100,prepost4_1,Enrichment
+68,97,2022-02-18T13:13:39Z,585,100,prepost4_2,Education
+69,97,2022-02-18T13:13:39Z,585,100,prepost4_3,Empowerment
+70,60,2022-02-18T13:13:54Z,655,100,prepost4_1,audience
+71,60,2022-02-18T13:13:54Z,655,100,prepost4_2,brevity
+72,60,2022-02-18T13:13:54Z,655,100,prepost4_3,awareness
+73,40,2022-02-18T13:14:06Z,841,100,prepost4_1,sensitization
+74,40,2022-02-18T13:14:06Z,841,100,prepost4_2,public education
+75,40,2022-02-18T13:14:06Z,841,100,prepost4_3,community engagement
+76,53,2022-02-18T13:14:11Z,575,100,prepost4_1,content accuracy/source's expertise
+77,53,2022-02-18T13:14:11Z,575,100,prepost4_2,target audience
+78,53,2022-02-18T13:14:11Z,575,100,prepost4_3,comprehension and call to action
+79,24,2022-02-18T13:14:12Z,606,100,prepost4_1,fun
+80,24,2022-02-18T13:14:12Z,606,100,prepost4_2,accessible
+81,24,2022-02-18T13:14:12Z,606,100,prepost4_3,important
+82,44,2022-02-18T13:14:21Z,674,100,prepost4_1,Digested information
+83,44,2022-02-18T13:14:21Z,674,100,prepost4_2,Targeted audience
+84,44,2022-02-18T13:14:21Z,674,100,prepost4_3,Understandable and useful
+85,43,2022-02-18T13:14:28Z,681,100,prepost4_1,Communicating with public
+86,43,2022-02-18T13:14:28Z,681,100,prepost4_2,Translating scientific jargon
+87,43,2022-02-18T13:14:28Z,681,100,prepost4_3,Outreach
+88,80,2022-02-18T13:14:54Z,719,100,prepost4_1,Public literacy
+89,80,2022-02-18T13:14:54Z,719,100,prepost4_2,Necessary
+90,80,2022-02-18T13:14:54Z,719,100,prepost4_3,Children
+91,45,2022-02-18T13:14:57Z,514,100,prepost4_1,Education
+92,45,2022-02-18T13:14:57Z,514,100,prepost4_2,Understanding
+93,45,2022-02-18T13:14:57Z,514,100,prepost4_3,Relating
+94,48,2022-02-18T13:15:25Z,707,100,prepost4_1,informal education
+95,48,2022-02-18T13:15:25Z,707,100,prepost4_2,readily available
+96,48,2022-02-18T13:15:25Z,707,100,prepost4_3,accessable
+97,54,2022-02-18T13:15:31Z,753,100,prepost4_1,Outreach
+98,54,2022-02-18T13:15:31Z,753,100,prepost4_2,Social media
+99,54,2022-02-18T13:15:31Z,753,100,prepost4_3,Museums
+100,7,2022-02-18T13:15:35Z,741,100,prepost4_1,Accessibility issues
+101,7,2022-02-18T13:15:35Z,741,100,prepost4_2,Environmental journalism
+102,7,2022-02-18T13:15:35Z,741,100,prepost4_3,
+103,87,2022-02-18T13:16:03Z,727,100,prepost4_1,explain
+104,87,2022-02-18T13:16:03Z,727,100,prepost4_2,simplify
+105,87,2022-02-18T13:16:03Z,727,100,prepost4_3,data
+106,98,2022-02-18T13:16:10Z,740,100,prepost4_1,information
+107,98,2022-02-18T13:16:10Z,740,100,prepost4_2,message
+108,98,2022-02-18T13:16:10Z,740,100,prepost4_3,data
+109,77,2022-02-18T13:16:15Z,689,100,prepost4_1,Learning science
+110,77,2022-02-18T13:16:15Z,689,100,prepost4_2,Communication in science
+111,77,2022-02-18T13:16:15Z,689,100,prepost4_3,Awareness
+112,62,2022-02-18T13:16:36Z,726,100,prepost4_1,Presentation of research
+113,62,2022-02-18T13:16:36Z,726,100,prepost4_2,Citizen Science
+114,62,2022-02-18T13:16:36Z,726,100,prepost4_3,Podcast
+115,99,2022-02-18T13:16:55Z,764,100,prepost4_1,Communication
+116,99,2022-02-18T13:16:55Z,764,100,prepost4_2,Raising awareness
+117,99,2022-02-18T13:16:55Z,764,100,prepost4_3,Learning
+118,55,2022-02-18T13:17:03Z,997,100,prepost4_1,Make it light
+119,55,2022-02-18T13:17:03Z,997,100,prepost4_2,No jargons
+120,55,2022-02-18T13:17:03Z,997,100,prepost4_3,Uncomplicate
+121,61,2022-02-18T13:18:26Z,778,100,prepost4_1,Informative
+122,61,2022-02-18T13:18:26Z,778,100,prepost4_2,Vital
+123,61,2022-02-18T13:18:26Z,778,100,prepost4_3,up to date
+124,32,2022-02-18T13:22:44Z,687,100,prepost4_1,Discussion based on facts
+125,32,2022-02-18T13:22:44Z,687,100,prepost4_2,Research
+126,32,2022-02-18T13:22:44Z,687,100,prepost4_3,Knowledgeable sharing
+127,83,2022-02-18T13:24:03Z,1481,100,prepost4_1,Talk about science
+128,83,2022-02-18T13:24:03Z,1481,100,prepost4_2,Audience
+129,83,2022-02-18T13:24:03Z,1481,100,prepost4_3,Interaction
+130,100,2022-02-18T13:26:31Z,1013,100,prepost4_1,Science
+131,100,2022-02-18T13:26:31Z,1013,100,prepost4_2,Information
+132,100,2022-02-18T13:26:31Z,1013,100,prepost4_3,communication
+133,13,2022-02-18T13:40:15Z,738,100,prepost4_1,perception
+134,13,2022-02-18T13:40:15Z,738,100,prepost4_2,non expert audience
+135,13,2022-02-18T13:40:15Z,738,100,prepost4_3,relating communication and science
+136,101,2022-02-18T14:29:45Z,797,100,prepost4_1,research
+137,101,2022-02-18T14:29:45Z,797,100,prepost4_2,inspire
+138,101,2022-02-18T14:29:45Z,797,100,prepost4_3,
+139,85,2022-02-18T17:54:24Z,997,100,prepost4_1,presenting results
+140,85,2022-02-18T17:54:24Z,997,100,prepost4_2,Reporting sciences findings
+141,85,2022-02-18T17:54:24Z,997,100,prepost4_3,Good interpretation of science work
+142,102,2022-02-22T12:43:18Z,343409,100,prepost4_1,biology
+143,102,2022-02-22T12:43:18Z,343409,100,prepost4_2,chemistry
+144,102,2022-02-22T12:43:18Z,343409,100,prepost4_3,technology
+145,103,2022-02-23T20:42:50Z,391214,100,prepost4_1,Technology
+146,103,2022-02-23T20:42:50Z,391214,100,prepost4_2,Article
+147,103,2022-02-23T20:42:50Z,391214,100,prepost4_3,Report
+148,81,2022-11-11T14:11:30Z,538,100,prepost4_1,facts
+149,81,2022-11-11T14:11:30Z,538,100,prepost4_2,formal vs informal
+150,81,2022-11-11T14:11:30Z,538,100,prepost4_3,audience
+151,42,2022-11-11T14:11:43Z,343,100,prepost4_1,Education
+152,42,2022-11-11T14:11:43Z,343,100,prepost4_2,Scientific
+153,42,2022-11-11T14:11:43Z,343,100,prepost4_3,Conversation
+154,104,2022-11-11T14:12:48Z,421,100,prepost4_1,outreach
+155,104,2022-11-11T14:12:48Z,421,100,prepost4_2,communication within fields
+156,104,2022-11-11T14:12:48Z,421,100,prepost4_3,disperse
+157,17,2022-11-11T14:14:21Z,510,100,prepost4_1,literacy
+158,17,2022-11-11T14:14:21Z,510,100,prepost4_2,accessibility
+159,17,2022-11-11T14:14:21Z,510,100,prepost4_3,out reach
+160,30,2022-11-11T14:14:32Z,436,100,prepost4_1,responsibility
+161,30,2022-11-11T14:14:32Z,436,100,prepost4_2,learning
+162,30,2022-11-11T14:14:32Z,436,100,prepost4_3,health
+163,36,2022-11-11T14:14:54Z,459,100,prepost4_1,Upcoming
+164,36,2022-11-11T14:14:54Z,459,100,prepost4_2,Problem Solving
+165,36,2022-11-11T14:14:54Z,459,100,prepost4_3,Social Media
+166,22,2022-11-11T14:14:55Z,741,100,prepost4_1,science literacy
+167,22,2022-11-11T14:14:55Z,741,100,prepost4_2,outreach
+168,22,2022-11-11T14:14:55Z,741,100,prepost4_3,Madagascar hissing cockroaches
+169,21,2022-11-11T14:14:57Z,552,100,prepost4_1,presentation
+170,21,2022-11-11T14:14:57Z,552,100,prepost4_2,knowledge
+171,21,2022-11-11T14:14:57Z,552,100,prepost4_3,general public
+172,82,2022-11-11T14:15:09Z,493,100,prepost4_1,Connection
+173,82,2022-11-11T14:15:09Z,493,100,prepost4_2,Research
+174,82,2022-11-11T14:15:09Z,493,100,prepost4_3,Problem solving
+175,105,2022-11-11T14:16:14Z,541,100,prepost4_1,Complex
+176,105,2022-11-11T14:16:14Z,541,100,prepost4_2,Advanced
+177,105,2022-11-11T14:16:14Z,541,100,prepost4_3,Design
+178,91,2022-11-11T14:16:16Z,603,100,prepost4_1,complicated
+179,91,2022-11-11T14:16:16Z,603,100,prepost4_2,big words
+180,91,2022-11-11T14:16:16Z,603,100,prepost4_3,hard to understand
+181,10,2022-11-11T14:16:20Z,582,100,prepost4_1,translate
+182,10,2022-11-11T14:16:20Z,582,100,prepost4_2,simplify
+183,10,2022-11-11T14:16:20Z,582,100,prepost4_3,reach larger audiences
+184,67,2022-11-11T14:17:12Z,670,100,prepost4_1,Engaging
+185,67,2022-11-11T14:17:12Z,670,100,prepost4_2,Hypothesis
+186,67,2022-11-11T14:17:12Z,670,100,prepost4_3,Experiment
+187,50,2022-11-11T14:17:42Z,624,100,prepost4_1,Understandable
+188,50,2022-11-11T14:17:42Z,624,100,prepost4_2,Relatable
+189,50,2022-11-11T14:17:42Z,624,100,prepost4_3,Learn new things
+190,29,2022-11-11T14:18:02Z,413,100,prepost4_1,after school
+191,29,2022-11-11T14:18:02Z,413,100,prepost4_2,fun
+192,29,2022-11-11T14:18:02Z,413,100,prepost4_3,kids
+193,25,2022-11-11T14:18:14Z,375,100,prepost4_1,Public Messaging
+194,25,2022-11-11T14:18:14Z,375,100,prepost4_2,Teaching
+195,25,2022-11-11T14:18:14Z,375,100,prepost4_3,Scientific Papers
+196,106,2022-11-11T14:19:21Z,732,100,prepost4_1,presenting research
+197,106,2022-11-11T14:19:21Z,732,100,prepost4_2,questions
+198,106,2022-11-11T14:19:21Z,732,100,prepost4_3,studies
+199,3,2022-11-11T14:19:41Z,804,100,prepost4_1,research
+200,3,2022-11-11T14:19:41Z,804,100,prepost4_2,translating results
+201,3,2022-11-11T14:19:41Z,804,100,prepost4_3,information
+202,20,2022-11-11T14:21:27Z,851,100,prepost4_1,public sharing
+203,20,2022-11-11T14:21:27Z,851,100,prepost4_2,misconceptions
+204,20,2022-11-11T14:21:27Z,851,100,prepost4_3,science easily
+205,15,2022-11-11T14:21:46Z,806,100,prepost4_1,Presentation
+206,15,2022-11-11T14:21:46Z,806,100,prepost4_2,Community
+207,15,2022-11-11T14:21:46Z,806,100,prepost4_3,Lay audience
+208,14,2022-11-11T14:21:47Z,871,100,prepost4_1,engaging
+209,14,2022-11-11T14:21:47Z,871,100,prepost4_2,activities
+210,14,2022-11-11T14:21:47Z,871,100,prepost4_3,rewarding
+211,41,2022-11-14T06:58:52Z,218,100,prepost4_1,outreach
+212,41,2022-11-14T06:58:52Z,218,100,prepost4_2,medicine
+213,41,2022-11-14T06:58:52Z,218,100,prepost4_3,verbal
+214,75,2023-02-17T14:11:02Z,380,100,prepost4_1,Research
+215,75,2023-02-17T14:11:02Z,380,100,prepost4_2,Statistics
+216,75,2023-02-17T14:11:02Z,380,100,prepost4_3,
+217,64,2023-02-17T14:11:25Z,426,100,prepost4_1,Complex
+218,64,2023-02-17T14:11:25Z,426,100,prepost4_2,Value Laden
+219,64,2023-02-17T14:11:25Z,426,100,prepost4_3,Political
+220,86,2023-02-17T14:11:56Z,362,100,prepost4_1,Research
+221,86,2023-02-17T14:11:56Z,362,100,prepost4_2,Lab
+222,86,2023-02-17T14:11:56Z,362,100,prepost4_3,Complex
+223,11,2023-02-17T14:12:01Z,476,100,prepost4_1,Paper
+224,11,2023-02-17T14:12:01Z,476,100,prepost4_2,Journal
+225,11,2023-02-17T14:12:01Z,476,100,prepost4_3,Article
+226,35,2023-02-17T14:12:19Z,387,100,prepost4_1,teaching
+227,35,2023-02-17T14:12:19Z,387,100,prepost4_2,engagement
+228,35,2023-02-17T14:12:19Z,387,100,prepost4_3,outreach
+229,37,2023-02-17T14:12:56Z,478,100,prepost4_1,Teaching
+230,37,2023-02-17T14:12:56Z,478,100,prepost4_2,Learning
+231,37,2023-02-17T14:12:56Z,478,100,prepost4_3,Information
+232,50,2023-02-17T14:13:22Z,524,100,prepost4_1,learning
+233,50,2023-02-17T14:13:22Z,524,100,prepost4_2,understandable
+234,50,2023-02-17T14:13:22Z,524,100,prepost4_3,interesting
+235,23,2023-02-17T14:13:41Z,552,100,prepost4_1,Graphs
+236,23,2023-02-17T14:13:41Z,552,100,prepost4_2,Specific language
+237,23,2023-02-17T14:13:41Z,552,100,prepost4_3,Precise
+238,107,2023-02-17T14:13:52Z,550,100,prepost4_1,Taking out jargon
+239,107,2023-02-17T14:13:52Z,550,100,prepost4_2,Making science accessible
+240,107,2023-02-17T14:13:52Z,550,100,prepost4_3,
+241,92,2023-02-17T14:14:29Z,622,100,prepost4_1,Interesting
+242,92,2023-02-17T14:14:29Z,622,100,prepost4_2,Difficult
+243,92,2023-02-17T14:14:29Z,622,100,prepost4_3,Necessary
+244,78,2023-02-17T14:14:36Z,598,100,prepost4_1,Educating
+245,78,2023-02-17T14:14:36Z,598,100,prepost4_2,Simplifying
+246,78,2023-02-17T14:14:36Z,598,100,prepost4_3,Facts
+247,33,2023-02-17T14:14:59Z,658,100,prepost4_1,information
+248,33,2023-02-17T14:14:59Z,658,100,prepost4_2,education
+249,33,2023-02-17T14:14:59Z,658,100,prepost4_3,awareness
+250,2,2023-02-17T14:15:10Z,446,100,prepost4_1,STEM
+251,2,2023-02-17T14:15:10Z,446,100,prepost4_2,Education
+252,2,2023-02-17T14:15:10Z,446,100,prepost4_3,Discoveries
+253,6,2023-02-17T14:15:31Z,579,100,prepost4_1,Research
+254,6,2023-02-17T14:15:31Z,579,100,prepost4_2,Technical Writing
+255,6,2023-02-17T14:15:31Z,579,100,prepost4_3,Informative
+256,28,2023-02-17T14:15:31Z,631,100,prepost4_1,Understanding
+257,28,2023-02-17T14:15:31Z,631,100,prepost4_2,Public outreach
+258,28,2023-02-17T14:15:31Z,631,100,prepost4_3,Scientific literature
+259,72,2023-02-17T14:15:45Z,682,100,prepost4_1,outreach
+260,72,2023-02-17T14:15:45Z,682,100,prepost4_2,education
+261,72,2023-02-17T14:15:45Z,682,100,prepost4_3,extension
+262,84,2023-02-17T14:16:39Z,691,100,prepost4_1,Education
+263,84,2023-02-17T14:16:39Z,691,100,prepost4_2,Scientific Journals
+264,84,2023-02-17T14:16:39Z,691,100,prepost4_3,Lab Reports
+265,69,2023-02-17T14:16:55Z,357,100,prepost4_1,Jargon
+266,69,2023-02-17T14:16:55Z,357,100,prepost4_2,Stem
+267,69,2023-02-17T14:16:55Z,357,100,prepost4_3,Science
+268,88,2023-02-17T14:17:18Z,759,100,prepost4_1,science education
+269,88,2023-02-17T14:17:18Z,759,100,prepost4_2,science ambassadors
+270,88,2023-02-17T14:17:18Z,759,100,prepost4_3,encouraging learning
+271,4,2023-02-17T14:19:28Z,796,100,prepost4_1,connecting with the general public
+272,4,2023-02-17T14:19:28Z,796,100,prepost4_2,sharing ideas within science
+273,4,2023-02-17T14:19:28Z,796,100,prepost4_3,inspiring interest in science
+274,63,2023-02-17T14:20:05Z,899,100,prepost4_1,poster
+275,63,2023-02-17T14:20:05Z,899,100,prepost4_2,talking to the public
+276,63,2023-02-17T14:20:05Z,899,100,prepost4_3,engaging people in science
+277,46,2023-02-17T14:23:21Z,1151,100,prepost4_1,Education
+278,46,2023-02-17T14:23:21Z,1151,100,prepost4_2,Interpretation
+279,46,2023-02-17T14:23:21Z,1151,100,prepost4_3,Translation of scientific jargon to everyday words
+280,108,2023-02-17T14:23:58Z,1058,100,prepost4_1,Paper publications
+281,108,2023-02-17T14:23:58Z,1058,100,prepost4_2,Patent rights
+282,108,2023-02-17T14:23:58Z,1058,100,prepost4_3,types of journal
+283,52,2023-02-17T14:25:47Z,1134,100,prepost4_1,People
+284,52,2023-02-17T14:25:47Z,1134,100,prepost4_2,Education
+285,52,2023-02-17T14:25:47Z,1134,100,prepost4_3,Raising awareness
+286,9,2023-02-17T14:29:56Z,1327,100,prepost4_1,scientific
+287,9,2023-02-17T14:29:56Z,1327,100,prepost4_2,talk
+288,9,2023-02-17T14:29:56Z,1327,100,prepost4_3,science research
+289,109,2023-02-17T14:37:02Z,1557,100,prepost4_1,people
+290,109,2023-02-17T14:37:02Z,1557,100,prepost4_2,talking
+291,109,2023-02-17T14:37:02Z,1557,100,prepost4_3,body language
+292,70,2023-02-17T17:41:11Z,2880,100,prepost4_1,journal
+293,70,2023-02-17T17:41:11Z,2880,100,prepost4_2,news
+294,70,2023-02-17T17:41:11Z,2880,100,prepost4_3,
+295,110,2023-02-18T09:38:24Z,521,100,prepost4_1,Facts
+296,110,2023-02-18T09:38:24Z,521,100,prepost4_2,Results
+297,110,2023-02-18T09:38:24Z,521,100,prepost4_3,Data
+298,36,2023-02-20T09:00:35Z,240959,100,prepost4_1,Controversial
+299,36,2023-02-20T09:00:35Z,240959,100,prepost4_2,Upcoming
+300,36,2023-02-20T09:00:35Z,240959,100,prepost4_3,
+301,34,2023-02-20T14:23:11Z,589,100,prepost4_1,Curiousity
+302,34,2023-02-20T14:23:11Z,589,100,prepost4_2,Engaging (and inclusive)
+303,34,2023-02-20T14:23:11Z,589,100,prepost4_3,Fun!
+304,89,2023-02-24T12:40:43Z,523,100,prepost4_1,Education
+305,89,2023-02-24T12:40:43Z,523,100,prepost4_2,Information
+306,89,2023-02-24T12:40:43Z,523,100,prepost4_3,Research
+307,51,2023-02-24T12:43:29Z,648,100,prepost4_1,Research
+308,51,2023-02-24T12:43:29Z,648,100,prepost4_2,Scientific Knowledge
+309,51,2023-02-24T12:43:29Z,648,100,prepost4_3,Comprehension
