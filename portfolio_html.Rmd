@@ -67,13 +67,213 @@ Lincoln, Nebraska, USA | [bjpessman@gmail.com](bjpessman@gmail.com) | [GitHub](h
 
 # About Me
 
-I am a data scientist with a Ph.D. from the University of Nebraska-Lincoln, where I developed a passion for uncovering patterns in complex datasets and translating them into actionable insights. My expertise lies in statistics, predictive modeling, pipeline production, data analytics, visualizations, wrangling, and geospatial analysis using tools like R, Python, SQL, Unix, Git, high-throughput computing, and QGIS.
+I have a passion for patterns - whether crocheting, sewing, observing spider webs, or coding. I have been uncovering patterns in complex datasets to tell stories that inform and innovate for the past six years. I am a data scientist with a Ph.D. from the University of Nebraska-Lincoln. My expertise lies in statistics, predictive modeling, pipeline production, data analytics, visualizations, wrangling, and geospatial analysis using languages/tools like R, Python, SQL, Unix, Git, high-throughput computing, and QGIS.
 
 I excel at designing scalable workflows and statistical models that transform raw data into resolutions that drive decision-making and innovation. By applying advanced analytical techniques to biological systems, I have developed a deep understanding of complex, dynamic data - skills that translate to solving real-world challenges in industry. 
 
 *Below are selected snippets of projects demonstrating my relevant experiences. The code behind the graphics and tables can be expanded throughout to showcase my skills in data wrangling, statistical analysis, and visualization using Python, R, or SQL languages.*
 
 # Featured Projects
+
+## Modeling Computer-Trained Poses [Python]
+**ONGOING**
+
+```{r dlc, fig.align = "center", out.width = "75%"}
+knitr::include_graphics("deeplabcut.jpg")
+```
+
+<br>
+
+* **Tech Stack**: Python, Unix, DeepLabCut, OSPool, HTCondor, High-Throughput Computing
+
+* **Motivation**: Quantify leg movements during mating displays across 22 species of wolf spiders (~1000 videos) to test if the complexity of visual displays are predictable across species. 
+
+* **Impact**: Applied machine learning and high-throughput computing to automate behavioral analysis, reducing manual video annotation time and enhancing the study of motion patterns in biomechanics.
+
+<br>
+
+-- Built and implemented a container for DeepLabCut, a deep-learning pose estimation software, to use on the remote servers of the Open Science Pool (OSPool). 
+
+-- Utilized machine learning to train the computer to learn key point positions on spider legs during mating displays. 
+
+-- Designed an efficient workflow on the remote server to train the model, evaluate the network, and run inference on 1000 videos.
+
+-- Collaborated with a brilliant research team who recorded the videos, extracted and labeled frames, and are working to group species with similar visual displays.
+
+<br>
+
+### Remote Computer Scripts {.tabset}
+
+<br>
+
+-- Wrote scripts that communicate with each other on the remote server to run a defined job - in this case, to use a trained model to estimate poses frame-by-frame. 
+
+<br>
+
+#### Python Script
+
+<br>
+
+This script sets the directory of the selected videos and runs functions in the DeepLabCut container that runs inference from the trained model on all videos in the specified path. 
+
+<br>
+
+```sh
+import deeplabcut
+import os
+import sys
+
+video = sys.argv[1]
+config = "path"
+
+current_directory = os.getcwd()
+config_path = os.path.join(current_directory, config, 'config.yaml')
+video_path = os.path.join(current_directory, video)
+dest_path = os.path.join(current_directory, config, 'results')
+
+deeplabcut.analyze_videos(config_path, [video_path], save_as_csv=True, 
+                          destfolder=dest_path)
+deeplabcut.filterpredictions(config_path, [video_path], destfolder=dest_path)
+```
+
+#### Shell Script
+
+<br>
+
+This scipt runs some necessary commands to ensure the DeepLabCut container is communicating with all necessary directories. It implements safeguards to ensure videos are properly formatted before running the Python script and tarring the results for output.
+
+<br>
+
+```sh
+video=$1
+
+mkdir -p /tmp/pretrained
+ls /usr/local/lib
+cp /usr/local/lib/python3.10/dist-packages/deeplabcut/pose_estimation_tensorflow/models/
+    pretrained.ORIG/*.yaml /tmp/pretrained
+cp /usr/local/lib/python3.10/dist-packages/deeplabcut/pose_estimation_tensorflow/models/
+    pretrained.ORIG/*.py /tmp/pretrained
+
+tar -xzf tar3_evaluated.tar.gz -C /srv
+mkdir /srv/path/results
+
+if [[ "$video" == *.MP4 ]]; then
+    python3.10 deeplabcut_analysis.py $video
+
+else
+    echo "Unsupported video format: $video. Please use .MP4."
+    exit 1
+fi
+
+tar -czf results_${video}.tar.gz path/
+```
+
+#### Submission File
+
+<br>
+
+This script is necessary for the HTConder system to distribute jobs to the pool of servers. It defines the input/output files, container location, computer requirements, and queue statement to parallel-process videos. 
+
+<br> 
+
+```sh
+video = $Fnx(videopath)
+executable = deeplabcut_analysis.sh
+arguments = $(video)
+
+transfer_input_files = tar3_evaluated.tar.gz, deeplabcut_analysis.py, osdf://$(videopath)
+transfer_output_remaps = "results_$(video).tar.gz = results/results_$(video).tar.gz"
+
+universe = container
+container_image = osdf:///path/DeepLabCut.sif
+
+output = output/output_$(video).out
+error = error/error_$(video).err
+log = log/log_$(video).log
+
+gpus_minimum_capability = 8.0
+request_gpus = 1
+request_cpus = 2
+request_memory = 40GB 
+request_disk = 25GB
+
+requirements = regexp("GP-ARGO", GLIDEIN_ResourceName) != True && 
+                     (GLIDEIN_ResourceName =!= MY.GLIDEIN_ResourceName0) && 
+                     (GLIDEIN_ResourceName =!= MY.GLIDEIN_ResourceName1) && 
+                     (GLIDEIN_ResourceName =!= MY.GLIDEIN_ResourceName2)
+
+queue videopath matching path/*.MP4
+```
+
+<br>
+
+### Visualizing Leg Movement
+
+<br>
+
+-- Processed the resulting CSV file to graph the y-coordinates of different body parts of the spider across video frames to predict leg movements.
+
+The spinnerets act as a baseline because the line should be horizontally flat if the spider is not moving. The left leg was raised where the pink/purple lines rise and likewise for the right leg with the orange/green lines. Further analysis can categorize patterns of rising/lowering legs and cluster by species. 
+
+<br>
+
+```{r dlc results, out.width = "100%"}
+knitr::include_graphics("positions.jpg")
+```
+
+```python
+import pandas as pd
+from pathlib import Path
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+
+Dataframe = pd.read_csv(os.path.join('sg138-19_C0038_filtered.csv'))
+
+df_melted_y = Dataframe.melt(id_vars=['coords'], 
+                    value_vars=[col for col in Dataframe.columns if col.endswith('.y')],
+                    var_name='bodypart', 
+                    value_name='y')
+                    
+df_melted_lh = Dataframe.melt(id_vars=['coords'], 
+                    value_vars=[col for col in Dataframe.columns if col.endswith('.lh')],
+                    var_name='bodypart', 
+                    value_name='lh')
+df_melted_lh = df_melted_lh[df_melted_lh['lh'] > 0.5]
+
+merged_df = pd.merge(df_melted_y, df_melted_lh, on=['coords'], how='left')
+merged_df = merged_df.dropna()
+merged_df = merged_df[merged_df['bodypart_x'].isin(['TR1.y', 'MR1.y', 'TL1.y', 
+                                                    'ML1.y', 'S.y'])]
+
+plt.figure(figsize=(10, 6))
+
+unique_bodyparts = merged_df['bodypart_x'].unique()
+plt.rcParams.update({'font.size': 16})
+
+colors = plt.cm.Dark2(range(len(unique_bodyparts)))
+
+for i, bodypart in enumerate(unique_bodyparts):
+    bodypart_data = merged_df[merged_df['bodypart_x'] == bodypart]
+    
+    plt.plot(bodypart_data['coords'], bodypart_data['y'], label=bodypart, color=colors[i])
+
+plt.xlabel('Frame')
+plt.ylabel('Y Coordinate')
+
+handles, labels = plt.gca().get_legend_handles_labels()
+new_labels = ['Tarsus R', 'Metatarsus R', 'Tarsus L', 'Metatarsus L', 'Spinnerets'] 
+plt.legend(handles, new_labels, loc="lower right")
+
+plt.xlim(5000, 8000) 
+plt.ylim(400, 900)
+
+plt.show()
+```
+
+<br>
+
+---
 
 ## Querying Sci-Comm Training Surveys [SQL, R]
 
@@ -827,206 +1027,6 @@ ggplot() +
 <br>
 
 **Participants completed the training with a heightened curiosity about spiders, with 70% reporting that the training changed their attitude toward spiders.**
-
-<br>
-
----
-
-## Modeling Computer-Trained Poses [Python]
-**ONGOING**
-
-```{r dlc, fig.align = "center", out.width = "75%"}
-knitr::include_graphics("deeplabcut.jpg")
-```
-
-<br>
-
-* **Tech Stack**: Python, Unix, DeepLabCut, OSPool, HTCondor, High-Throughput Computing
-
-* **Motivation**: Quantify leg movements during mating displays across 22 species of wolf spiders (~1000 videos) to test if the complexity of visual displays are predictable across species. 
-
-* **Impact**: Applied machine learning and high-throughput computing to automate behavioral analysis, reducing manual video annotation time and enhancing the study of motion patterns in biomechanics.
-
-<br>
-
--- Built and implemented a container for DeepLabCut, a deep-learning pose estimation software, to use on the remote servers of the Open Science Pool (OSPool). 
-
--- Utilized machine learning to train the computer to learn key point positions on spider legs during mating displays. 
-
--- Designed an efficient workflow on the remote server to train the model, evaluate the network, and run inference on 1000 videos.
-
--- Collaborated with a brilliant research team who recorded the videos, extracted and labeled frames, and are working to group species with similar visual displays.
-
-<br>
-
-### Remote Computer Scripts {.tabset}
-
-<br>
-
--- Wrote scripts that communicate with each other on the remote server to run a defined job - in this case, to use a trained model to estimate poses frame-by-frame. 
-
-<br>
-
-#### Python Script
-
-<br>
-
-This script sets the directory of the selected videos and runs functions in the DeepLabCut container that runs inference from the trained model on all videos in the specified path. 
-
-<br>
-
-```sh
-import deeplabcut
-import os
-import sys
-
-video = sys.argv[1]
-config = "path"
-
-current_directory = os.getcwd()
-config_path = os.path.join(current_directory, config, 'config.yaml')
-video_path = os.path.join(current_directory, video)
-dest_path = os.path.join(current_directory, config, 'results')
-
-deeplabcut.analyze_videos(config_path, [video_path], save_as_csv=True, 
-                          destfolder=dest_path)
-deeplabcut.filterpredictions(config_path, [video_path], destfolder=dest_path)
-```
-
-#### Shell Script
-
-<br>
-
-This scipt runs some necessary commands to ensure the DeepLabCut container is communicating with all necessary directories. It implements safeguards to ensure videos are properly formatted before running the Python script and tarring the results for output.
-
-<br>
-
-```sh
-video=$1
-
-mkdir -p /tmp/pretrained
-ls /usr/local/lib
-cp /usr/local/lib/python3.10/dist-packages/deeplabcut/pose_estimation_tensorflow/models/
-    pretrained.ORIG/*.yaml /tmp/pretrained
-cp /usr/local/lib/python3.10/dist-packages/deeplabcut/pose_estimation_tensorflow/models/
-    pretrained.ORIG/*.py /tmp/pretrained
-
-tar -xzf tar3_evaluated.tar.gz -C /srv
-mkdir /srv/path/results
-
-if [[ "$video" == *.MP4 ]]; then
-    python3.10 deeplabcut_analysis.py $video
-
-else
-    echo "Unsupported video format: $video. Please use .MP4."
-    exit 1
-fi
-
-tar -czf results_${video}.tar.gz path/
-```
-
-#### Submission File
-
-<br>
-
-This script is necessary for the HTConder system to distribute jobs to the pool of servers. It defines the input/output files, container location, computer requirements, and queue statement to parallel-process videos. 
-
-<br> 
-
-```sh
-video = $Fnx(videopath)
-executable = deeplabcut_analysis.sh
-arguments = $(video)
-
-transfer_input_files = tar3_evaluated.tar.gz, deeplabcut_analysis.py, osdf://$(videopath)
-transfer_output_remaps = "results_$(video).tar.gz = results/results_$(video).tar.gz"
-
-universe = container
-container_image = osdf:///path/DeepLabCut.sif
-
-output = output/output_$(video).out
-error = error/error_$(video).err
-log = log/log_$(video).log
-
-gpus_minimum_capability = 8.0
-request_gpus = 1
-request_cpus = 2
-request_memory = 40GB 
-request_disk = 25GB
-
-requirements = regexp("GP-ARGO", GLIDEIN_ResourceName) != True && 
-                     (GLIDEIN_ResourceName =!= MY.GLIDEIN_ResourceName0) && 
-                     (GLIDEIN_ResourceName =!= MY.GLIDEIN_ResourceName1) && 
-                     (GLIDEIN_ResourceName =!= MY.GLIDEIN_ResourceName2)
-
-queue videopath matching path/*.MP4
-```
-
-<br>
-
-### Visualizing Leg Movement
-
-<br>
-
--- Processed the resulting CSV file to graph the y-coordinates of different body parts of the spider across video frames to predict leg movements.
-
-The spinnerets act as a baseline because the line should be horizontally flat if the spider is not moving. The left leg was raised where the pink/purple lines rise and likewise for the right leg with the orange/green lines. Further analysis can categorize patterns of rising/lowering legs and cluster by species. 
-
-<br>
-
-```{r dlc results, out.width = "100%"}
-knitr::include_graphics("positions.jpg")
-```
-
-```python
-import pandas as pd
-from pathlib import Path
-import numpy as np
-import os
-import matplotlib.pyplot as plt
-
-Dataframe = pd.read_csv(os.path.join('sg138-19_C0038_filtered.csv'))
-
-df_melted_y = Dataframe.melt(id_vars=['coords'], 
-                    value_vars=[col for col in Dataframe.columns if col.endswith('.y')],
-                    var_name='bodypart', 
-                    value_name='y')
-                    
-df_melted_lh = Dataframe.melt(id_vars=['coords'], 
-                    value_vars=[col for col in Dataframe.columns if col.endswith('.lh')],
-                    var_name='bodypart', 
-                    value_name='lh')
-df_melted_lh = df_melted_lh[df_melted_lh['lh'] > 0.5]
-
-merged_df = pd.merge(df_melted_y, df_melted_lh, on=['coords'], how='left')
-merged_df = merged_df.dropna()
-merged_df = merged_df[merged_df['bodypart_x'].isin(['TR1.y', 'MR1.y', 'TL1.y', 
-                                                    'ML1.y', 'S.y'])]
-
-plt.figure(figsize=(10, 6))
-
-unique_bodyparts = merged_df['bodypart_x'].unique()
-plt.rcParams.update({'font.size': 16})
-
-colors = plt.cm.Dark2(range(len(unique_bodyparts)))
-
-for i, bodypart in enumerate(unique_bodyparts):
-    bodypart_data = merged_df[merged_df['bodypart_x'] == bodypart]
-    
-    plt.plot(bodypart_data['coords'], bodypart_data['y'], label=bodypart, color=colors[i])
-
-plt.xlabel('Frame')
-plt.ylabel('Y Coordinate')
-
-handles, labels = plt.gca().get_legend_handles_labels()
-new_labels = ['Tarsus R', 'Metatarsus R', 'Tarsus L', 'Metatarsus L', 'Spinnerets'] 
-plt.legend(handles, new_labels, loc="lower right")
-
-plt.xlim(5000, 8000) 
-plt.ylim(400, 900)
-
-plt.show()
-```
 
 <br>
 
